@@ -28,7 +28,8 @@ const swipeable = ({
   initialVelocityThreshold = 0.7,
   verticalThreshold = 10,
   horizontalThreshold = 10,
-  setGestureState = true
+  setGestureState = true,
+  wrapperStyles = { alignSelf: 'flex-start' }
 } = {}) => BaseComponent => {
 
   const checkHorizontal = horizontal || (left || right);
@@ -168,7 +169,7 @@ const swipeable = ({
 
       const style = {
         ...swipeDecoratorStyle,
-        alignSelf: 'flex-start'
+        ...wrapperStyles
       };
 
       const state = setGestureState ? this.state : null;

@@ -1,4 +1,8 @@
 'use strict';
+import pannable from './recognizers/pannable';
+import swipeable from './recognizers/swipeable';
 
-export pannable from './recognizers/pannable';
-export swipeable from './recognizers/swipeable';
+export default {
+  pannable,
+  swipeable
+};

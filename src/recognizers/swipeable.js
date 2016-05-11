@@ -63,8 +63,8 @@ const swipeable = ({
           return evt.nativeEvent.touches.length === 1;
         },
 
-        onMoveShouldSetPanResponder: (evt) => {
-          return evt.nativeEvent.touches.length === 1;
+        onMoveShouldSetPanResponder: (evt, gestureState) => {
+          return gestureState.dx != 0 || gestureState.dy != 0;
         },
 
         onPanResponderMove: (evt, gestureState) => {

@@ -59,13 +59,14 @@ const swipeable = ({
     componentWillMount() {
       this.panResponder = PanResponder.create({
 
-        onStartShouldSetPanResponder: (evt, gestureState) => {
-          console.log(evt.nativeEvent.touches.length === 1, 'mine??', evt, gestureState);
-          return evt.nativeEvent.touches.length === 1;
-        },
-
         onMoveShouldSetPanResponder: (evt, gestureState) => {
           const {dx, dy, vx, vy} = gestureState;
+          
+          console.log(checkHorizontal, isValidSwipe(
+              vx, dy, initialVelocityThreshold, verticalThreshold
+            ), checkVertical, isValidSwipe(
+              vy, dx, initialVelocityThreshold, horizontalThreshold
+            ));
           
           if (checkHorizontal) {
             return isValidSwipe(

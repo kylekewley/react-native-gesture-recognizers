@@ -62,12 +62,6 @@ const swipeable = ({
         onMoveShouldSetPanResponder: (evt, gestureState) => {
           const {dx, dy, vx, vy} = gestureState;
           
-          console.log(checkHorizontal, isValidSwipe(
-              vx, dy, initialVelocityThreshold, verticalThreshold
-            ), checkVertical, isValidSwipe(
-              vy, dx, initialVelocityThreshold, horizontalThreshold
-            ));
-          
           if (checkHorizontal) {
             return isValidSwipe(
               vx, dy, initialVelocityThreshold, verticalThreshold

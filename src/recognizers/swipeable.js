@@ -59,8 +59,8 @@ const swipeable = ({
     componentWillMount() {
       this.panResponder = PanResponder.create({
 
-        onStartShouldSetPanResponder: (evt) => {
-          console.log(evt.nativeEvent.touches.length === 1, 'mine??');
+        onStartShouldSetPanResponder: (evt, gestureState) => {
+          console.log(evt.nativeEvent.touches.length === 1, 'mine??', evt, gestureState);
           return evt.nativeEvent.touches.length === 1;
         },
 

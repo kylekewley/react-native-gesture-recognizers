@@ -64,7 +64,18 @@ const swipeable = ({
         },
 
         onMoveShouldSetPanResponder: (evt, gestureState) => {
-          return gestureState.dx != 0 || gestureState.dy != 0;
+          const {dx, dy, vx, vy} = gestureState;
+          
+          if (checkHorizontal) {
+            return isValidSwipe(
+              vx, dy, initialVelocityThreshold, verticalThreshold
+            );
+          }
+          if (checkVertical) {
+            return isValidSwipe(
+              vy, dx, initialVelocityThreshold, horizontalThreshold
+            );
+          }
         },
 
         onPanResponderMove: (evt, gestureState) => {

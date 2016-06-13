@@ -60,6 +60,7 @@ const swipeable = ({
       this.panResponder = PanResponder.create({
 
         onStartShouldSetPanResponder: (evt) => {
+          console.log(evt.nativeEvent.touches.length === 1, 'mine??');
           return evt.nativeEvent.touches.length === 1;
         },
 

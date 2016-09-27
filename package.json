@@ -2,10 +2,8 @@
   "name": "react-native-gesture-recognizers",
   "version": "0.2.3",
   "description": "Gesture recognizer decorators for react-native",
-  "main": "src/index.js",
-  "scripts": {
-    "prepublish": "`npm bin`/eslint src && rm -rf lib && `npm bin`/babel src --out-dir lib"
-  },
+  "main": "index.js",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/johanneslumpe/react-native-gesture-recognizers.git"
@@ -21,10 +19,9 @@
     "url": "https://github.com/johanneslumpe/react-native-gesture-recognizers/issues"
   },
   "homepage": "https://github.com/johanneslumpe/react-native-gesture-recognizers",
-  "devDependencies": {
-    "babel": "^5.6.14",
-    "babel-eslint": "^3.1.23",
-    "eslint": "^0.24.0",
-    "eslint-plugin-react": "^2.6.4"
+  "devDependencies": {},
+  "dependencies": {
+    "react-mixin": "^3.0.5",
+    "react-timer-mixin": "^0.13.3"
   }
 }

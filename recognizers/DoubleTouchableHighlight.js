@@ -31,7 +31,7 @@ class DoubleTouchableHighlight extends Component {
       this.lastPress = currentTime;
 
       // Add a timer to trigger a single press if the double press isn't detected in doubleTapTime
-      this.timer = this.setTimeout(() => this._confirmedSinglePress(onPress), doubleTapTime);
+      this.timer = this.setTimeout(() => this._confirmedSinglePress(onPress, doubleTapTime), doubleTapTime);
     }
   }
 
@@ -46,10 +46,19 @@ class DoubleTouchableHighlight extends Component {
       }
   }
 
-  _confirmedSinglePress(onPress) {
-    this.timer = null;
-    this.lastPress = 0;
-    if (typeof onPress === 'function') onPress();
+  _confirmedSinglePress(onPress, doubleTapTime) {
+    var currentTime = new Date().getTime();
+    var d = currentTime - this.lastPress;
+
+    // Sometimes the setTimeout function is very inaccurate, so it is best to make sure
+    // we are actually at our timeout before triggering a tap
+    if (d < doubleTapTime) {
+      this.timer = this.setTimeout(() => this._confirmedSinglePress(onPress), doubleTapTime - d);
+    }else {
+      this.timer = null;
+      this.lastPress = 0;
+      if (typeof onPress === 'function') onPress();
+    }
   }
 
   render() {

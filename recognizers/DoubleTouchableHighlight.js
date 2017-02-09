@@ -21,7 +21,7 @@ class DoubleTouchableHighlight extends Component {
   _innerPress(doubleTapTime, onPress, onDoublePress, e) {
     var currentTime = new Date().getTime();
     var delta = currentTime - this.lastPress;
-    this.numFingers = Math.min(this.numFingers, e.nativeEvent.touches.length);
+    this.numFingers = Math.min(this.numFingers, e.nativeEvent.changedTouches.length);
 
     // Check if in the last doubleTapTime ms
     if (delta < doubleTapTime) {

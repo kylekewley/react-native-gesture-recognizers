@@ -14,31 +14,34 @@ class DoubleTouchableHighlight extends Component {
 
     this.timer = null;
     this.lastPress = 0;
+    this.numFingers = 1;
   }
 
 
   _innerPress(doubleTapTime, onPress, onDoublePress, e) {
     var currentTime = new Date().getTime();
     var delta = currentTime - this.lastPress;
+    this.numFingers = Math.min(this.numFingers, e.nativeEvent.touches.length);
 
     // Check if in the last doubleTapTime ms
     if (delta < doubleTapTime) {
       // For sure a double press
-      this._confirmedDoublePress(onDoublePress, e);
+      this._confirmedDoublePress(onDoublePress);
     }else {
       // Only a single press or the start of a double press so we need
       // to set the lastPress to the current time for the next function call.
       this.lastPress = currentTime;
 
       // Add a timer to trigger a single press if the double press isn't detected in doubleTapTime
-      this.timer = this.setTimeout(() => this._confirmedSinglePress(onPress, doubleTapTime, e), doubleTapTime);
+      this.timer = this.setTimeout(() => this._confirmedSinglePress(onPress, doubleTapTime), doubleTapTime);
     }
   }
 
-  _confirmedDoublePress(onDoublePress, e) {
+  _confirmedDoublePress(onDoublePress) {
       // Execute the doublePress and reset the timer
-      if (typeof onDoublePress === 'function') onDoublePress(e);
+      if (typeof onDoublePress === 'function') onDoublePress(this.numFingers);
       this.lastPress = 0;
+      this.numFingers = 1;
 
       // Clear the single press timer
       if (this.timer) {
@@ -46,18 +49,19 @@ class DoubleTouchableHighlight extends Component {
       }
   }
 
-  _confirmedSinglePress(onPress, doubleTapTime, e) {
+  _confirmedSinglePress(onPress, doubleTapTime) {
     var currentTime = new Date().getTime();
     var d = currentTime - this.lastPress;
 
     // Sometimes the setTimeout function is very inaccurate, so it is best to make sure
     // we are actually at our timeout before triggering a tap
     if (d < doubleTapTime) {
-      this.timer = this.setTimeout(() => this._confirmedSinglePress(onPress, e), doubleTapTime - d);
+      this.timer = this.setTimeout(() => this._confirmedSinglePress(onPress, doubleTapTime), doubleTapTime - d);
     }else {
       this.timer = null;
       this.lastPress = 0;
-      if (typeof onPress === 'function') onPress(e);
+      if (typeof onPress === 'function') onPress(this.numFingers);
+      this.numFingers = 1;
     }
   }
 
